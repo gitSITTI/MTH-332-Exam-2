@@ -2,7 +2,8 @@
   const STORAGE_KEY = 'mth332_notes_v1';
 
   /**
-   * @typedef {{ id: string, title: string, content: string, createdAt: number, updatedAt: number }} Note
+   * @typedef {{ doc: string, page?: number }} Reference
+   * @typedef {{ id: string, title: string, content: string, createdAt: number, updatedAt: number, reference?: Reference }} Note
    */
 
   /** @returns {Note[]} */
@@ -58,6 +59,21 @@
     const updated = new Date(note.updatedAt).toLocaleString();
     meta.textContent = `Updated: ${updated}`;
 
+    if (note.reference && note.reference.doc) {
+      const ref = document.createElement('div');
+      ref.className = 'note-ref';
+      const page = note.reference.page && Number.isFinite(note.reference.page) ? Number(note.reference.page) : undefined;
+      const anchor = page ? `#page=${page}` : '';
+      const link = document.createElement('a');
+      link.href = `${note.reference.doc}${anchor}`;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = page ? `View ${note.reference.doc}, page ${page}` : `View ${note.reference.doc}`;
+      ref.appendChild(link);
+      meta.appendChild(document.createTextNode(' · '));
+      meta.appendChild(ref);
+    }
+
     li.appendChild(header);
     li.appendChild(body);
     li.appendChild(meta);
@@ -107,6 +123,8 @@
     const form = document.getElementById('note-form');
     const title = document.getElementById('title');
     const content = document.getElementById('content');
+    const refDoc = document.getElementById('ref-doc');
+    const refPage = document.getElementById('ref-page');
     const clearBtn = document.getElementById('clear-all');
     const exportBtn = document.getElementById('export');
     const importInput = document.getElementById('import');
@@ -118,12 +136,23 @@
         const c = /** @type {HTMLTextAreaElement} */ (content).value.trim();
         if (!t || !c) return;
         const now = Date.now();
-        const note = { id: uid(), title: t, content: c, createdAt: now, updatedAt: now };
+        /** @type {Reference | undefined} */
+        let reference;
+        const docVal = /** @type {HTMLSelectElement} */ (refDoc)?.value || '';
+        const pageValRaw = /** @type {HTMLInputElement} */ (refPage)?.value || '';
+        const pageVal = pageValRaw ? Number(pageValRaw) : undefined;
+        if (docVal) {
+          reference = { doc: docVal };
+          if (pageVal && Number.isFinite(pageVal) && pageVal > 0) reference.page = pageVal;
+        }
+        const note = { id: uid(), title: t, content: c, createdAt: now, updatedAt: now, reference };
         const notes = loadNotes();
         notes.push(note);
         saveNotes(notes);
         /** @type {HTMLInputElement} */ (title).value = '';
         /** @type {HTMLTextAreaElement} */ (content).value = '';
+        if (refDoc) /** @type {HTMLSelectElement} */ (refDoc).value = '';
+        if (refPage) /** @type {HTMLInputElement} */ (refPage).value = '';
         renderNotes();
       });
     }

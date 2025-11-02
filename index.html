@@ -23,6 +23,23 @@
             <label for="content">Content</label>
             <textarea id="content" name="content" placeholder="Write note..." rows="4" required></textarea>
           </div>
+          <fieldset class="field fieldset">
+            <legend>Optional reference</legend>
+            <div class="ref-grid">
+              <div>
+                <label for="ref-doc">Document</label>
+                <select id="ref-doc" name="ref-doc">
+                  <option value="">None</option>
+                  <option value="m314Syllabus.pdf">m314Syllabus.pdf</option>
+                  <option value="m314book1-25.pdf">m314book1-25.pdf</option>
+                </select>
+              </div>
+              <div>
+                <label for="ref-page">Page</label>
+                <input id="ref-page" name="ref-page" type="number" min="1" step="1" placeholder="e.g. 1">
+              </div>
+            </div>
+          </fieldset>
           <div class="actions">
             <button type="submit">Add note</button>
             <button type="button" id="clear-all" class="secondary">Clear all</button>
@@ -38,6 +55,15 @@
       <section>
         <h2>Notes</h2>
         <ul id="notes" class="notes"></ul>
+      </section>
+
+      <section class="resources">
+        <h2>Resources</h2>
+        <ul>
+          <li><a href="m314Syllabus.pdf" target="_blank" rel="noopener noreferrer">m314Syllabus.pdf</a></li>
+          <li><a href="m314book1-25.pdf" target="_blank" rel="noopener noreferrer">m314book1-25.pdf</a></li>
+        </ul>
+        <p class="muted">Tip: add a page number in the reference to deep-link (e.g. #page=12).</p>
       </section>
     </main>
 
