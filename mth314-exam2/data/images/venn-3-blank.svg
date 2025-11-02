@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120">
+  <rect x="1" y="1" width="198" height="118" fill="none" stroke="#666"/>
+  <circle cx="80" cy="60" r="35" fill="#4aa3ff22" stroke="#4aa3ff"/>
+  <circle cx="120" cy="60" r="35" fill="#2ecc7122" stroke="#2ecc71"/>
+  <circle cx="100" cy="40" r="35" fill="#ffcc0022" stroke="#ffcc00"/>
+  <text x="10" y="110" font-size="10" fill="#999">venn-3-blank</text>
+</svg>
+
