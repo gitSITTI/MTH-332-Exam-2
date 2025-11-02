@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MTH 332 - Local Notes</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header>
+      <h1>MTH 332 - Local Notes</h1>
+      <p>Data is stored in your browser's localStorage for this origin.</p>
+    </header>
+
+    <main>
+      <section class="controls">
+        <form id="note-form" autocomplete="off">
+          <div class="field">
+            <label for="title">Title</label>
+            <input id="title" name="title" type="text" placeholder="Note title" required>
+          </div>
+          <div class="field">
+            <label for="content">Content</label>
+            <textarea id="content" name="content" placeholder="Write note..." rows="4" required></textarea>
+          </div>
+          <div class="actions">
+            <button type="submit">Add note</button>
+            <button type="button" id="clear-all" class="secondary">Clear all</button>
+            <button type="button" id="export" class="secondary">Export</button>
+            <label class="import-label">
+              <input type="file" id="import" accept="application/json" hidden>
+              <span class="btn-secondary">Import</span>
+            </label>
+          </div>
+        </form>
+      </section>
+
+      <section>
+        <h2>Notes</h2>
+        <ul id="notes" class="notes"></ul>
+      </section>
+    </main>
+
+    <script src="app.js" defer></script>
+  </body>
+  </html>
+
+
