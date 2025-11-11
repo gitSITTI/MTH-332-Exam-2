@@ -1,0 +1,27 @@
+{
+  "induction-basics": {
+    "video_id": "induction-basics",
+    "module": 6,
+    "title": "Induction Foundations (Module 6A)",
+    "topic": "Strong vs. weak induction",
+    "url": "https://example.com/induction-basics",
+    "date": "2023-10-03"
+  },
+  "counting-principles": {
+    "video_id": "counting-principles",
+    "module": 7,
+    "title": "Counting Principles Warmup (Module 7B)",
+    "topic": "Addition and multiplication rules",
+    "url": "https://example.com/counting-principles",
+    "date": "2023-10-12"
+  },
+  "probability-basics": {
+    "video_id": "probability-basics",
+    "module": 8,
+    "title": "Probability Kickoff (Module 8A)",
+    "topic": "Sample spaces & events",
+    "url": "https://example.com/probability-basics",
+    "date": "2023-10-24"
+  }
+}
+

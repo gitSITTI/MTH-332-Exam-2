@@ -1,0 +1,29 @@
+[33mcommit 005965040f5a4e4971103dd365eae3ce6cfc023a[m[33m ([m[1;32mmain[m[33m)[m
+Author: Your Name <your-email@example.com>
+Date:   Sun Nov 2 02:36:17 2025 -0600
+
+    feat(mth314-exam2): scaffold pipeline, scripts, CLI, web shell, images
+
+ mth314-exam2/.gitignore                            |  10 [32m++[m
+ mth314-exam2/README.md                             |  76 [32m+++++++++++++[m
+ mth314-exam2/app/cli/quiz_cli.py                   |  86 [32m+++++++++++++++[m
+ mth314-exam2/app/web/index.html                    |  38 [32m+++++++[m
+ mth314-exam2/app/web/quiz.js                       |  60 [32m++++++++++[m
+ mth314-exam2/app/web/styles.css                    |   8 [32m++[m
+ mth314-exam2/data/images/bayes-tree-blank.svg      |  19 [32m++++[m
+ mth314-exam2/data/images/matrix-3x3-blank.svg      |  11 [32m++[m
+ mth314-exam2/data/images/venn-3-blank.svg          |   8 [32m++[m
+ mth314-exam2/data/qbank/.gitkeep                   |   2 [32m+[m
+ mth314-exam2/data/segments/.gitkeep                |   2 [32m+[m
+ mth314-exam2/data/transcripts/.gitkeep             |   2 [32m+[m
+ mth314-exam2/docs/acceptance-criteria.md           |   7 [32m++[m
+ mth314-exam2/docs/roadmap.md                       |  11 [32m++[m
+ mth314-exam2/docs/style-guide.md                   |   6 [32m+[m
+ mth314-exam2/exam2_resources/Exam2_Video_Index.csv |   2 [32m+[m
+ .../transcripts_placeholders/.gitkeep              |   2 [32m+[m
+ mth314-exam2/requirements.txt                      |   3 [32m+[m
+ mth314-exam2/scripts/01_ingest_transcripts.py      |  91 [32m++++++++++++++++[m
+ mth314-exam2/scripts/02_clean_segment.py           | 121 [32m+++++++++++++++++++++[m
+ mth314-exam2/scripts/03_generate_questions.py      | 118 [32m++++++++++++++++++++[m
+ mth314-exam2/scripts/04_pack_quiz_sets.py          |  55 [32m++++++++++[m
+ 22 files changed, 738 insertions(+)
