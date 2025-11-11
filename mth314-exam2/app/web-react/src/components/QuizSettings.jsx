@@ -79,6 +79,19 @@ function QuizSettings({ onSettingsChange }) {
             <label className="quiz-settings__option">
               <input
                 type="checkbox"
+                checked={settings.practiceMode}
+                onChange={() => handleToggle('practiceMode')}
+                aria-describedby="practice-mode-desc"
+              />
+              <span className="quiz-settings__option-label">Practice mode</span>
+              <span id="practice-mode-desc" className="quiz-settings__option-desc">
+                Highlight correct answers and display explanations while you work through questions
+              </span>
+            </label>
+
+            <label className="quiz-settings__option">
+              <input
+                type="checkbox"
                 checked={settings.showExplanations}
                 onChange={() => handleToggle('showExplanations')}
                 aria-describedby="show-explanations-desc"

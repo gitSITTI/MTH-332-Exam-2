@@ -11,6 +11,7 @@ function QuestionCard({
   onSelectChoice,
   revealAnswer = false,
   showExplanation = false,
+  practiceMode = false,
   videoMeta,
 }) {
   if (!question) return null
@@ -20,6 +21,11 @@ function QuestionCard({
 
   return (
     <article className="quiz-card" aria-labelledby={`question-${questionNumber}`}>
+      {practiceMode && !revealAnswer && (
+        <div className="quiz-card__practice-note" role="status" aria-live="polite">
+          Practice mode is on — correct answers are highlighted to guide your review.
+        </div>
+      )}
       <header className="quiz-card__header">
         <span className="quiz-card__badge quiz-card__badge--module">
           Module {question.module}
@@ -45,21 +51,35 @@ function QuestionCard({
         {question.choices?.map((choice, index) => {
           const isSelected = selectedIndex === index
           const isCorrectChoice = question.answer_index === index
-          const revealState = revealAnswer || (answered && isCorrectChoice)
+          const isPracticeHighlight = practiceMode && !revealAnswer && isCorrectChoice
+          const revealState = revealAnswer || (answered && isCorrectChoice) || isPracticeHighlight
           const optionStatus = revealAnswer
             ? isCorrectChoice
               ? 'correct'
               : isSelected
                 ? 'selected'
                 : 'default'
-            : isSelected
-              ? isCorrect
-                ? 'correct'
-                : 'incorrect'
-              : 'default'
+            : isPracticeHighlight
+              ? 'practice'
+              : isSelected
+                ? isCorrect
+                  ? 'correct'
+                  : 'incorrect'
+                : 'default'
 
           const choiceId = `choice-${questionNumber}-${index}`
           const choiceLetter = String.fromCharCode(65 + index)
+          const ariaLabelParts = [`Option ${choiceLetter}: ${choice}`]
+
+          if (revealAnswer && isCorrectChoice) {
+            ariaLabelParts.push('Correct answer')
+          } else if (answered && isCorrectChoice) {
+            ariaLabelParts.push('Correct answer')
+          }
+
+          if (isPracticeHighlight) {
+            ariaLabelParts.push('Highlighted for practice mode')
+          }
 
           return (
             <li key={index}>
@@ -71,7 +91,7 @@ function QuestionCard({
                 disabled={revealAnswer}
                 role="radio"
                 aria-checked={isSelected}
-                aria-label={`Option ${choiceLetter}: ${choice}${revealState && isCorrectChoice ? '. Correct answer' : ''}`}
+                aria-label={ariaLabelParts.join('. ')}
                 tabIndex={revealAnswer ? -1 : isSelected ? 0 : -1}
               >
                 <span className="choice-button__index" aria-hidden="true">
@@ -110,7 +130,11 @@ function QuestionCard({
       )}
 
       {(showExplanation || revealAnswer) && question.explanation && (
-        <div className="quiz-card__explanation">
+        <div
+          className={`quiz-card__explanation${
+            practiceMode && !revealAnswer ? ' quiz-card__explanation--practice' : ''
+          }`}
+        >
           <strong>Explanation:</strong> {question.explanation}
         </div>
       )}

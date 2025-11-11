@@ -93,5 +93,6 @@ export const loadQuizSettings = () => {
 export const getDefaultSettings = () => ({
   shuffleQuestions: false,
   showExplanations: true,
+  practiceMode: false,
 })
 

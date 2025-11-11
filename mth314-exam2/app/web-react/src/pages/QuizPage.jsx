@@ -127,6 +127,7 @@ function QuizPage() {
   const answeredCount = Object.keys(answers).length
   const currentQuestion = questions[currentIndex]
   const selectedIndex = answers[currentQuestion?.id] ?? null
+  const practiceModeActive = settings.practiceMode
 
   const questionVideoMeta =
     (currentQuestion?.video_id && videoIndex?.[currentQuestion.video_id]) || lecture
@@ -277,7 +278,8 @@ function QuizPage() {
           selectedIndex={selectedIndex}
           onSelectChoice={handleSelectChoice}
           revealAnswer={showResults}
-          showExplanation={showResults && settings.showExplanations}
+          showExplanation={practiceModeActive || (showResults && settings.showExplanations)}
+          practiceMode={practiceModeActive}
           videoMeta={questionVideoMeta}
         />
       )}

@@ -3,11 +3,11 @@
   flex-direction: column;
   gap: 1.25rem;
   padding: clamp(1.25rem, 3vw, 1.75rem);
-  background: rgba(16, 20, 35, 0.92);
+  background: var(--card-bg, rgba(16, 20, 35, 0.92));
   border-radius: 22px;
-  border: 1px solid rgba(118, 126, 168, 0.2);
-  box-shadow: 0 24px 48px -28px rgba(26, 34, 74, 0.7);
-  color: #f8faff;
+  border: 1px solid var(--card-border, rgba(118, 126, 168, 0.2));
+  box-shadow: var(--card-shadow, 0 24px 48px -28px rgba(26, 34, 74, 0.7));
+  color: var(--card-text, #f8faff);
 }
 
 .quiz-card__header {
@@ -16,7 +16,20 @@
   gap: 0.75rem;
   align-items: center;
   font-size: 0.85rem;
-  color: rgba(223, 230, 255, 0.72);
+  color: var(--card-text-secondary, rgba(223, 230, 255, 0.72));
+}
+
+.quiz-card__practice-note {
+  padding: 0.65rem 0.9rem;
+  border-radius: 14px;
+  background: var(--practice-note-bg, rgba(103, 224, 188, 0.12));
+  border: 1px solid var(--practice-note-border, rgba(108, 232, 193, 0.35));
+  color: var(--practice-note-text, rgba(209, 255, 236, 0.95));
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .quiz-card__badge {
@@ -28,13 +41,13 @@
 }
 
 .quiz-card__badge--module {
-  background: rgba(90, 118, 252, 0.18);
-  color: #c5ccff;
+  background: var(--badge-module-bg, rgba(90, 118, 252, 0.18));
+  color: var(--badge-module-text, #c5ccff);
 }
 
 .quiz-card__badge--type {
-  background: rgba(109, 209, 185, 0.18);
-  color: #bfeee0;
+  background: var(--badge-type-bg, rgba(109, 209, 185, 0.18));
+  color: var(--badge-type-text, #bfeee0);
 }
 
 .quiz-card__position {
@@ -46,7 +59,7 @@
   margin: 0;
   font-size: clamp(1.05rem, 2.4vw, 1.35rem);
   line-height: 1.5;
-  color: #fdfdff;
+  color: var(--card-title, #fdfdff);
 }
 
 .quiz-card__choices {
@@ -59,9 +72,9 @@
 
 .choice-button {
   width: 100%;
-  border: 1px solid rgba(126, 136, 180, 0.32);
-  background: rgba(28, 34, 54, 0.75);
-  color: #f1f4ff;
+  border: 1px solid var(--choice-border, rgba(126, 136, 180, 0.32));
+  background: var(--choice-bg, rgba(28, 34, 54, 0.75));
+  color: var(--choice-text, #f1f4ff);
   padding: 0.85rem 1rem;
   border-radius: 14px;
   display: flex;
@@ -76,8 +89,8 @@
 .choice-button:hover,
 .choice-button:focus-visible {
   transform: translateY(-2px);
-  box-shadow: 0 14px 24px -20px rgba(74, 102, 255, 0.9);
-  border-color: rgba(105, 120, 255, 0.55);
+  box-shadow: var(--choice-hover-shadow, 0 14px 24px -20px rgba(74, 102, 255, 0.9));
+  border-color: var(--choice-hover-border, rgba(105, 120, 255, 0.55));
   outline: none;
 }
 
@@ -87,7 +100,7 @@
   display: grid;
   place-items: center;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--choice-index-bg, rgba(255, 255, 255, 0.08));
   font-weight: 700;
   font-size: 0.95rem;
 }
@@ -104,25 +117,33 @@
 }
 
 .choice-button--correct {
-  border-color: rgba(79, 207, 163, 0.8);
-  background: linear-gradient(
-    120deg,
-    rgba(73, 211, 177, 0.2),
-    rgba(125, 224, 190, 0.15)
+  border-color: var(--choice-correct-border, rgba(79, 207, 163, 0.8));
+  background: var(
+    --choice-correct-bg,
+    linear-gradient(120deg, rgba(73, 211, 177, 0.2), rgba(125, 224, 190, 0.15))
   );
 }
 
-.choice-button--incorrect {
-  border-color: rgba(244, 119, 136, 0.8);
+.choice-button--practice {
+  border-color: var(--practice-note-border, rgba(125, 224, 190, 0.75));
   background: linear-gradient(
-    120deg,
-    rgba(244, 119, 136, 0.18),
-    rgba(196, 82, 108, 0.15)
+    135deg,
+    rgba(140, 241, 202, 0.18),
+    rgba(108, 232, 193, 0.14)
+  );
+  box-shadow: 0 12px 24px -18px rgba(58, 158, 135, 0.65);
+}
+
+.choice-button--incorrect {
+  border-color: var(--choice-incorrect-border, rgba(244, 119, 136, 0.8));
+  background: var(
+    --choice-incorrect-bg,
+    linear-gradient(120deg, rgba(244, 119, 136, 0.18), rgba(196, 82, 108, 0.15))
   );
 }
 
 .choice-button--selected:not(.choice-button--correct):not(.choice-button--incorrect) {
-  border-color: rgba(112, 122, 255, 0.65);
+  border-color: var(--choice-selected-border, rgba(112, 122, 255, 0.65));
 }
 
 .choice-button:disabled {
@@ -141,27 +162,33 @@
 }
 
 .quiz-card__feedback--correct {
-  background: rgba(73, 211, 177, 0.14);
-  color: #b9ffe7;
+  background: var(--feedback-correct-bg, rgba(73, 211, 177, 0.14));
+  color: var(--feedback-correct-text, #b9ffe7);
 }
 
 .quiz-card__feedback--incorrect {
-  background: rgba(244, 119, 136, 0.14);
-  color: #ffced7;
+  background: var(--feedback-incorrect-bg, rgba(244, 119, 136, 0.14));
+  color: var(--feedback-incorrect-text, #ffced7);
 }
 
 .quiz-card__answer {
-  border-left: 4px solid rgba(79, 207, 163, 0.9);
+  border-left: 4px solid var(--answer-border, rgba(79, 207, 163, 0.9));
   padding: 0.6rem 1rem;
-  background: rgba(73, 211, 177, 0.08);
+  background: var(--answer-bg, rgba(73, 211, 177, 0.08));
   border-radius: 12px;
+}
+
+.quiz-card__explanation--practice {
+  background: var(--explanation-practice-bg, rgba(103, 224, 188, 0.12));
+  border: 1px solid var(--explanation-practice-border, rgba(108, 232, 193, 0.3));
+  color: var(--explanation-practice-text, rgba(220, 255, 240, 0.9));
 }
 
 .quiz-card__explanation {
   padding: 0.75rem 1rem;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05);
-  color: rgba(229, 234, 255, 0.82);
+  background: var(--explanation-bg, rgba(255, 255, 255, 0.05));
+  color: var(--explanation-text, rgba(229, 234, 255, 0.82));
   line-height: 1.5;
 }
 
@@ -171,8 +198,8 @@
   gap: 1rem;
   padding: 0.75rem 1rem;
   border-radius: 12px;
-  background: rgba(36, 44, 72, 0.7);
-  border: 1px solid rgba(132, 142, 189, 0.3);
+  background: var(--source-bg, rgba(36, 44, 72, 0.7));
+  border: 1px solid var(--source-border, rgba(132, 142, 189, 0.3));
 }
 
 .quiz-card__source {
@@ -186,7 +213,7 @@
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: rgba(207, 214, 244, 0.7);
+  color: var(--source-label, rgba(207, 214, 244, 0.7));
 }
 
 .quiz-card__source-value {
@@ -200,13 +227,13 @@
   border-radius: 999px;
   text-decoration: none;
   color: #fdfdff;
-  background: rgba(97, 113, 246, 0.28);
-  border: 1px solid rgba(112, 132, 255, 0.45);
+  background: var(--source-link-bg, rgba(97, 113, 246, 0.28));
+  border: 1px solid var(--source-link-border, rgba(112, 132, 255, 0.45));
 }
 
 .quiz-card__source-link:hover,
 .quiz-card__source-link:focus-visible {
-  background: rgba(97, 113, 246, 0.38);
+  background: var(--source-link-hover, rgba(97, 113, 246, 0.38));
   outline: none;
 }
 
