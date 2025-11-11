@@ -1,0 +1,15 @@
+{
+  "name": "mth-332-exam-2",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static notes app using localStorage for localhost and Codespaces.",
+  "scripts": {
+    "dev": "http-server -p 3000 -c-1 .",
+    "start": "npm run dev"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
+
+

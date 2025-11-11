@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+*.log
+
+# data artifacts
+/data/segments/*.jsonl
+/data/transcripts/*.md
+/data/qbank/drafts.jsonl

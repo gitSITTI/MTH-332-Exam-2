@@ -1,0 +1,31 @@
+[
+  {
+    "id": "mock-lecture-1-q1",
+    "module": "3",
+    "video_id": "mock-lecture-1",
+    "type": "mcq",
+    "question": "For integers a and b, what does a | b denote?",
+    "choices": [
+      "There exists an integer k such that b = ak",
+      "a is less than b",
+      "a and b share no common factors",
+      "b is prime"
+    ],
+    "answer_index": 0,
+    "explanation": "Divisibility means the dividend can be expressed as the divisor multiplied by an integer.",
+    "tags": ["divisibility", "number-theory"]
+  },
+  {
+    "id": "mock-lecture-1-q2",
+    "module": "3",
+    "video_id": "mock-lecture-1",
+    "type": "tf",
+    "question": "The constants that certify a Big O relationship are called witnesses.",
+    "choices": ["True", "False"],
+    "answer_index": 0,
+    "explanation": "Witnesses are positive constants C and K that satisfy the Big O inequality.",
+    "tags": ["asymptotics", "big-o"]
+  }
+]
+
+
