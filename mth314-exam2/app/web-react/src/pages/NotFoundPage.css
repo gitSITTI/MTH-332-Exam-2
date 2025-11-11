@@ -1,0 +1,27 @@
+.page--notfound {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  text-align: center;
+  color: #f5f8ff;
+}
+
+.page--notfound__link {
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  background: linear-gradient(120deg, #586cfb, #8d4bff);
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.page--notfound__link:hover,
+.page--notfound__link:focus-visible {
+  opacity: 0.9;
+  outline: none;
+}
+
+
