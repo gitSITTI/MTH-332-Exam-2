@@ -18,6 +18,12 @@ function AppHeader({ theme = 'midnight', onThemeChange, themeOptions = [] }) {
           <NavLink to="/" className={navLinkClass} end>
             Lectures
           </NavLink>
+          <NavLink to="/exam2" className={navLinkClass}>
+            Exam 2 Prep
+          </NavLink>
+          <NavLink to="/venn-trainer" className={navLinkClass}>
+            Venn Trainer
+          </NavLink>
         </nav>
         {themeOptions.length > 0 && (
           <select

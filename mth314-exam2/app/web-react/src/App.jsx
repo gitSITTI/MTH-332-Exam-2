@@ -2,9 +2,11 @@ import { useEffect, useMemo, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import AppHeader from './components/AppHeader.jsx'
 import { DataProvider } from './context/DataProvider.jsx'
+import Exam2PrepPage from './pages/Exam2PrepPage.jsx'
 import HomePage from './pages/HomePage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import QuizPage from './pages/QuizPage.jsx'
+import VennTrainerPage from './pages/VennTrainerPage.jsx'
 import './App.css'
 
 const THEME_STORAGE_KEY = 'ui_theme_preference'
@@ -48,6 +50,8 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/quiz/:lectureId" element={<QuizPage />} />
+              <Route path="/exam2" element={<Exam2PrepPage />} />
+              <Route path="/venn-trainer" element={<VennTrainerPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>

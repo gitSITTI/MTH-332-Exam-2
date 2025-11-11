@@ -1,0 +1,85 @@
+.venn-diagram {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+.venn-diagram__svg {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+}
+
+.venn-diagram__outlines circle {
+  fill: none;
+  stroke-width: 2px;
+  stroke: var(--color-surface-stronger, #4a5568);
+  opacity: 0.65;
+}
+
+.venn-diagram__outline--A {
+  stroke: var(--venn-outline-a, #4aa3ff);
+}
+
+.venn-diagram__outline--B {
+  stroke: var(--venn-outline-b, #2ecc71);
+}
+
+.venn-diagram__outline--C {
+  stroke: var(--venn-outline-c, #ffcc00);
+}
+
+.venn-diagram__regions {
+  cursor: pointer;
+}
+
+.venn-diagram__region {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.venn-diagram__region--disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.venn-diagram__region-shape {
+  fill: transparent;
+  stroke: transparent;
+  transition:
+    fill 0.2s ease,
+    stroke 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.venn-diagram__region:not(.venn-diagram__region--disabled):hover .venn-diagram__region-shape {
+  fill: var(--venn-region-hover, rgba(79, 209, 197, 0.25));
+}
+
+.venn-diagram__region-shape--selected {
+  fill: var(--venn-region-selected, rgba(66, 153, 225, 0.35));
+  stroke: var(--venn-region-selected-outline, rgba(66, 153, 225, 0.9));
+  stroke-width: 2px;
+}
+
+.venn-diagram__region-shape--highlight {
+  fill: var(--venn-region-highlight, rgba(72, 187, 120, 0.4));
+  stroke: var(--venn-region-highlight-outline, rgba(47, 133, 90, 0.9));
+  stroke-width: 2px;
+  stroke-dasharray: 6 4;
+}
+
+.venn-diagram__region-shape--selected.venn-diagram__region-shape--highlight {
+  fill: var(--venn-region-selected-highlight, rgba(236, 201, 75, 0.45));
+}
+
+.venn-diagram__labels text {
+  font-size: 1rem;
+  font-weight: 600;
+  fill: var(--color-text-muted, #cbd5f5);
+  pointer-events: none;
+  text-anchor: middle;
+}
+
+

@@ -1,0 +1,164 @@
+.exam2-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1.5rem 0;
+}
+
+.exam2-header {
+  display: grid;
+  gap: 1.5rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+.exam2-header__title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.exam2-header__heading {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.exam2-header__subheading {
+  margin: 0;
+  color: var(--color-text-muted, rgba(255, 255, 255, 0.75));
+}
+
+.exam2-header__timestamp {
+  font-size: 0.85rem;
+  color: var(--color-text-muted, rgba(255, 255, 255, 0.6));
+}
+
+.exam2-header__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.exam2-coverage {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.exam2-coverage__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.exam2-coverage__title {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.exam2-coverage__subtitle {
+  margin: 0;
+  color: var(--color-text-muted, rgba(255, 255, 255, 0.7));
+  font-size: 0.9rem;
+}
+
+.exam2-coverage__grid {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.exam2-tabs {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.exam2-questions {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.exam2-empty {
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  color: var(--color-text-muted, rgba(255, 255, 255, 0.7));
+}
+
+.exam2-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.exam2-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 10px;
+  padding: 0.85rem 1.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--color-text-primary, #ffffff);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.exam2-submit:hover {
+  background: rgba(95, 205, 238, 0.15);
+  border-color: rgba(95, 205, 238, 0.45);
+  transform: translateY(-1px);
+}
+
+.exam2-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none;
+}
+
+.exam2-score {
+  font-weight: 600;
+  color: var(--color-accent, #5fcdee);
+}
+
+@media (min-width: 960px) {
+  .exam2-header {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .exam2-page {
+    padding: 1rem 0;
+  }
+
+  .exam2-header {
+    padding: 1.25rem;
+  }
+
+  .exam2-coverage {
+    padding: 1rem 1.25rem;
+  }
+
+  .exam2-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .exam2-submit {
+    width: 100%;
+    justify-content: center;
+  }
+}
+

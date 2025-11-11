@@ -12,7 +12,6 @@ export const useKeyboardNavigation = ({
   canGoForward,
   showSubmit,
   totalChoices,
-  currentSelectedIndex,
   disabled = false,
 }) => {
   useEffect(() => {
@@ -61,14 +60,15 @@ export const useKeyboardNavigation = ({
         case '6':
         case '7':
         case '8':
-        case '9':
+        case '9': {
           // Number keys 1-9 map to choices 0-8
-          const choiceIndex = parseInt(event.key) - 1
+          const choiceIndex = parseInt(event.key, 10) - 1
           if (choiceIndex >= 0 && choiceIndex < totalChoices) {
             event.preventDefault()
             onSelectChoice?.(choiceIndex)
           }
           break
+        }
 
         case 'a':
         case 'A':
@@ -87,7 +87,7 @@ export const useKeyboardNavigation = ({
         case 'h':
         case 'H':
         case 'i':
-        case 'I':
+        case 'I': {
           // Letter keys A-I map to choices 0-8
           const letterIndex = event.key.toUpperCase().charCodeAt(0) - 65
           if (letterIndex >= 0 && letterIndex < totalChoices) {
@@ -95,6 +95,7 @@ export const useKeyboardNavigation = ({
             onSelectChoice?.(letterIndex)
           }
           break
+        }
 
         default:
           break

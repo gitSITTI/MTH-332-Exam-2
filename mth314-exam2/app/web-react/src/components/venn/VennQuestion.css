@@ -1,0 +1,110 @@
+.venn-question {
+  background: var(--color-surface-muted, rgba(30, 41, 59, 0.55));
+  border-radius: 1rem;
+  padding: 1.25rem;
+  border: 1px solid var(--color-border-subtle, rgba(148, 163, 184, 0.3));
+  box-shadow: 0 20px 40px -24px rgba(15, 23, 42, 0.7);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.venn-question__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.venn-question__eyebrow {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted, #94a3b8);
+}
+
+.venn-question__prompt {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-text-primary, #f1f5f9);
+}
+
+.venn-question__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted, #a0aec0);
+}
+
+.venn-question__meta-value {
+  color: var(--color-text-primary, #f8fafc);
+}
+
+.venn-question__status {
+  border-radius: 0.75rem;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.venn-question__status--success {
+  background: rgba(56, 161, 105, 0.12);
+  border-color: rgba(56, 161, 105, 0.35);
+  color: #68d391;
+}
+
+.venn-question__status--error {
+  background: rgba(229, 62, 62, 0.12);
+  border-color: rgba(229, 62, 62, 0.4);
+  color: #fc8181;
+}
+
+.venn-question__status--note {
+  background: rgba(237, 137, 54, 0.14);
+  border-color: rgba(237, 137, 54, 0.38);
+  color: #f6ad55;
+}
+
+.venn-question__status--warning {
+  background: rgba(236, 201, 75, 0.16);
+  border-color: rgba(236, 201, 75, 0.45);
+  color: #fbd38d;
+}
+
+.venn-question__solution {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.venn-question__solution-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-muted, #cbd5f5);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.venn-question__solution-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.venn-question__solution-tag {
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  background: rgba(56, 189, 248, 0.1);
+  color: var(--color-text-primary, #f8fafc);
+}
+
+.venn-question__meta-separator {
+  opacity: 0.6;
+}
+
+
