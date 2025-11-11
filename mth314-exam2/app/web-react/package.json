@@ -1,0 +1,39 @@
+{
+  "name": "web-react",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "test": "vitest",
+    "test:watch": "vitest watch",
+    "preview": "vite preview",
+    "format": "prettier \"src/**/*.{js,jsx,css,json}\" --write",
+    "format:check": "prettier \"src/**/*.{js,jsx,css,json}\" --check"
+  },
+  "dependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^7.9.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.36.0",
+    "@types/react": "^19.1.16",
+    "@types/react-dom": "^19.1.9",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@vitejs/plugin-react": "^5.0.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint": "^9.36.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.22",
+    "globals": "^16.4.0",
+    "jsdom": "^26.0.0",
+    "prettier": "^3.4.2",
+    "vite": "^7.1.7",
+    "vitest": "^2.1.8"
+  }
+}
