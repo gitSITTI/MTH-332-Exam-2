@@ -1,0 +1,62 @@
+.probability-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: var(--color-surface, #ffffff);
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border, #e5e7eb);
+}
+
+.probability-filter__label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-secondary, #6b7280);
+}
+
+.probability-filter__options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.probability-filter__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text, #111827);
+  background: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #d1d5db);
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.probability-filter__button:hover {
+  background: var(--color-surface-hover, #f9fafb);
+  border-color: var(--color-border-hover, #9ca3af);
+}
+
+.probability-filter__button--active {
+  background: var(--color-primary, #3b82f6);
+  color: var(--color-primary-text, #ffffff);
+  border-color: var(--color-primary, #3b82f6);
+}
+
+.probability-filter__button--active:hover {
+  background: var(--color-primary-hover, #2563eb);
+  border-color: var(--color-primary-hover, #2563eb);
+}
+
+.probability-filter__emoji {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.probability-filter__text {
+  line-height: 1;
+}
+

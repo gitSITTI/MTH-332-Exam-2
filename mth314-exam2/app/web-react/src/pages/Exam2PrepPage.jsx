@@ -3,6 +3,11 @@ import Exam2Header from '../components/exam2/Exam2Header.jsx'
 import CoverageCard from '../components/exam2/CoverageCard.jsx'
 import SectionTabs from '../components/exam2/SectionTabs.jsx'
 import QuestionList from '../components/exam2/QuestionList.jsx'
+import ProbabilityFilter from '../components/exam2/ProbabilityFilter.jsx'
+import Section4_4Tools from '../components/exam2/Section4_4Tools.jsx'
+import Section4_5Tools from '../components/exam2/Section4_5Tools.jsx'
+import Section5_1Tools from '../components/exam2/Section5_1Tools.jsx'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
   generateExam2QuestionSet,
   getQuestionById,
@@ -25,14 +30,19 @@ const QUESTIONS_PER_SET = 6
 function Exam2PrepPage() {
   const [mode, setMode] = useState('practice')
   const [section, setSection] = useState(DEFAULT_SECTION)
+  const [probabilityThreshold, setProbabilityThreshold] = useState(0)
   const [questions, setQuestions] = useState([])
   const [responses, setResponses] = useState({})
   const [showFeedback, setShowFeedback] = useState(false)
   const [isGenerating, setIsGenerating] = useState(false)
   const [lastGeneratedAt, setLastGeneratedAt] = useState(null)
   const [isHydrated, setIsHydrated] = useState(false)
+  const [summary, setSummary] = useState([])
 
-  const summary = useMemo(() => getQuestionBankSummary(), [])
+  // Load summary asynchronously
+  useEffect(() => {
+    getQuestionBankSummary().then(setSummary).catch(console.error)
+  }, [])
 
   const filteredQuestions = useMemo(
     () =>
@@ -63,15 +73,17 @@ function Exam2PrepPage() {
   }, [responses, scorableQuestions, shouldShowFeedback])
 
   const handleGenerateSet = useCallback(
-    (targetSection = section, options = {}) => {
+    async (targetSection = section, options = {}) => {
       try {
         setIsGenerating(true)
 
         const seed = Date.now()
-        const nextQuestions = generateExam2QuestionSet({
+        const nextQuestions = await generateExam2QuestionSet({
           section: targetSection,
           seed,
           count: QUESTIONS_PER_SET,
+          probabilityThreshold: probabilityThreshold,
+          includeInstructor: true,
         })
 
         setQuestions(nextQuestions)
@@ -98,7 +110,7 @@ function Exam2PrepPage() {
         setIsGenerating(false)
       }
     },
-    [section],
+    [section, probabilityThreshold],
   )
 
   useEffect(() => {
@@ -120,21 +132,28 @@ function Exam2PrepPage() {
     }
 
     if (storedSet?.questionIds?.length) {
-      const hydratedQuestions = storedSet.questionIds
-        .map(questionId => getQuestionById(questionId))
-        .filter(Boolean)
+      const loadQuestions = async () => {
+        const hydratedQuestions = await Promise.all(
+          storedSet.questionIds.map(questionId => getQuestionById(questionId)),
+        )
+        const validQuestions = hydratedQuestions.filter(Boolean)
 
-      if (hydratedQuestions.length) {
-        setQuestions(hydratedQuestions)
-        setLastGeneratedAt(storedSet.generatedAt ?? null)
-        if (storedSet.section) {
-          setSection(storedSet.section)
-          nextSection = storedSet.section
+        if (validQuestions.length) {
+          setQuestions(validQuestions)
+          setLastGeneratedAt(storedSet.generatedAt ?? null)
+          if (storedSet.section) {
+            setSection(storedSet.section)
+            nextSection = storedSet.section
+          }
+          setIsHydrated(true)
+          return
         }
+        clearLastQuestionSet()
+        handleGenerateSet(nextSection, { skipPersistence: true })
         setIsHydrated(true)
-        return undefined
       }
-      clearLastQuestionSet()
+      loadQuestions()
+      return undefined
     }
 
     handleGenerateSet(nextSection, { skipPersistence: true })
@@ -183,10 +202,21 @@ function Exam2PrepPage() {
     handleGenerateSet(nextSection)
   }
 
+  const handleProbabilityThresholdChange = nextThreshold => {
+    setProbabilityThreshold(nextThreshold)
+    // Regenerate questions with new threshold
+    handleGenerateSet(section)
+  }
+
   const scoreSummary =
     shouldShowFeedback && scorableQuestions.length > 0
       ? `${correctCount} / ${scorableQuestions.length} correct`
       : `${answeredCount} / ${filteredQuestions.length} answered`
+
+  const practice = mode === 'practice'
+
+  // Determine which tools to show based on selected section
+  const showTools = section === '4.4' || section === '4.5' || section === '5.1' || section === 'all'
 
   return (
     <div className="exam2-page">
@@ -201,6 +231,37 @@ function Exam2PrepPage() {
       <CoverageCard summary={summary} />
 
       <SectionTabs activeSection={section} onChange={handleSectionChange} />
+
+      <ProbabilityFilter
+        value={probabilityThreshold}
+        onChange={handleProbabilityThresholdChange}
+      />
+
+      {showTools && (
+        <div className="exam2-tools-section">
+          {section === '4.4' && <Section4_4Tools practice={practice} />}
+          {section === '4.5' && <Section4_5Tools practice={practice} />}
+          {section === '5.1' && <Section5_1Tools practice={practice} />}
+          {section === 'all' && (
+            <Tabs defaultValue="44" className="w-full">
+              <TabsList className="flex flex-wrap">
+                <TabsTrigger value="44">Section 4.4</TabsTrigger>
+                <TabsTrigger value="45">Section 4.5</TabsTrigger>
+                <TabsTrigger value="51">Section 5.1</TabsTrigger>
+              </TabsList>
+              <TabsContent value="44">
+                <Section4_4Tools practice={practice} />
+              </TabsContent>
+              <TabsContent value="45">
+                <Section4_5Tools practice={practice} />
+              </TabsContent>
+              <TabsContent value="51">
+                <Section5_1Tools practice={practice} />
+              </TabsContent>
+            </Tabs>
+          )}
+        </div>
+      )}
 
       <QuestionList
         questions={filteredQuestions}

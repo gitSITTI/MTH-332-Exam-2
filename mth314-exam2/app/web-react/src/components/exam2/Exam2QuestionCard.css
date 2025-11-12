@@ -20,6 +20,14 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  flex: 1;
+}
+
+.exam2-card__meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .exam2-card__number {
@@ -28,11 +36,35 @@
   color: var(--color-text-muted, rgba(255, 255, 255, 0.75));
 }
 
+.exam2-card__probability {
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
 .exam2-card__section {
   font-size: 0.8rem;
   color: var(--color-accent, #5fcdee);
   letter-spacing: 0.03em;
   text-transform: uppercase;
+}
+
+.exam2-card__label {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  background: rgba(95, 205, 238, 0.15);
+  color: var(--color-accent, #5fcdee);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.exam2-card__origin {
+  font-size: 0.9rem;
+  line-height: 1;
 }
 
 .exam2-card__body {
@@ -45,6 +77,21 @@
   font-size: 1rem;
   line-height: 1.5;
   margin: 0;
+}
+
+.exam2-card__topic-info {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0.5rem 0 0 0;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.5rem;
+  color: var(--color-text-muted, rgba(255, 255, 255, 0.8));
+}
+
+.exam2-card__topic-info strong {
+  color: var(--color-accent, #5fcdee);
+  font-weight: 600;
 }
 
 .exam2-card__kind {

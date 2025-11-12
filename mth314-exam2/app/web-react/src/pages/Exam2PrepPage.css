@@ -68,10 +68,48 @@
   font-size: 0.9rem;
 }
 
+.exam2-coverage__stats {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.exam2-coverage__stat {
+  font-size: 0.85rem;
+  color: var(--color-text-muted, rgba(255, 255, 255, 0.7));
+}
+
+.exam2-coverage__stat-label {
+  font-weight: 500;
+}
+
+.exam2-coverage__stat-value {
+  font-weight: 600;
+  color: var(--color-accent, #5fcdee);
+}
+
 .exam2-coverage__grid {
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
+}
+
+.exam2-coverage__section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.exam2-coverage__section-badge {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  background: rgba(95, 205, 238, 0.15);
+  color: var(--color-accent, #5fcdee);
+  font-weight: 500;
 }
 
 .exam2-tabs {
@@ -92,6 +130,10 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px dashed rgba(255, 255, 255, 0.15);
   color: var(--color-text-muted, rgba(255, 255, 255, 0.7));
+}
+
+.exam2-tools-section {
+  margin: 2rem 0;
 }
 
 .exam2-actions {

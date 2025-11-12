@@ -1,7 +1,15 @@
 import { mod } from './mathUtils.js'
+import {
+  loadInstructorCatalog,
+  filterByProbability,
+  filterBySection,
+  mergeQuestionBanks,
+} from './instructorCatalog.js'
 
-export const EXAM2_SECTIONS = ['4.4', '4.5', '5.1']
+export const EXAM2_SECTIONS = ['3.2', '3.3', '4.1', '4.2', '4.3', '4.4', '4.5', '5.1', '5.2', '6.1', '6.2']
 export const QUESTION_KINDS = ['mc', 'numeric', 'short']
+
+let instructorQuestionsCache = null
 
 const questionBank = [
   {
@@ -109,35 +117,98 @@ const computeSeedFromString = input => {
 }
 
 /**
+ * Load and cache instructor questions
+ * @returns {Promise<Array>} Instructor questions
+ */
+export async function loadInstructorQuestions() {
+  if (instructorQuestionsCache === null) {
+    instructorQuestionsCache = await loadInstructorCatalog()
+  }
+  return instructorQuestionsCache
+}
+
+/**
+ * Merge instructor questions with existing bank
+ * @param {Array} instructorQuestions - Instructor questions to merge
+ * @returns {Array} Combined question bank
+ */
+export function getMergedQuestionBank(instructorQuestions = []) {
+  return mergeQuestionBanks(questionBank, instructorQuestions)
+}
+
+/**
  * Generate a reproducible question set from the Exam 2 bank.
  *
  * @param {{
- *   section?: '4.4' | '4.5' | '5.1' | 'all',
+ *   section?: string,
  *   count?: number,
- *   seed?: number | string
+ *   seed?: number | string,
+ *   probabilityThreshold?: number,
+ *   includeInstructor?: boolean
  * }} options
  */
-export const generateExam2QuestionSet = (options = {}) => {
-  const { section = 'all', count = 6, seed } = options
+export const generateExam2QuestionSet = async (options = {}) => {
+  const {
+    section = 'all',
+    count = 6,
+    seed,
+    probabilityThreshold = 0,
+    includeInstructor = true,
+  } = options
+
+  let candidateQuestions = questionBank.slice()
+
+  // Load and merge instructor questions if requested
+  if (includeInstructor) {
+    try {
+      const instructorQuestions = await loadInstructorQuestions()
+      let filteredInstructor = instructorQuestions
+
+      // Apply section filter to instructor questions
+      if (section !== 'all') {
+        filteredInstructor = filterBySection(filteredInstructor, section)
+      }
+
+      // Apply probability threshold to instructor questions
+      if (probabilityThreshold > 0) {
+        filteredInstructor = filterByProbability(filteredInstructor, probabilityThreshold)
+      }
+
+      candidateQuestions = mergeQuestionBanks(candidateQuestions, filteredInstructor)
+    } catch (error) {
+      console.warn('Failed to load instructor questions:', error)
+    }
+  }
+
+  // Apply section filter to all questions
   const normalizedSection = section === 'all' ? null : section
-  const candidateQuestions = normalizedSection
-    ? questionBank.filter(question => question.section === normalizedSection)
-    : questionBank.slice()
+  if (normalizedSection) {
+    candidateQuestions = candidateQuestions.filter(
+      question => question.section === normalizedSection,
+    )
+  }
 
   if (candidateQuestions.length === 0) {
     return []
   }
 
+  // Weight selection by probability (higher probability = more likely to appear)
+  const weightedQuestions = candidateQuestions.flatMap(q => {
+    const weight = q.probability ? Math.max(1, Math.floor(q.probability / 10)) : 1
+    return Array(weight).fill(q)
+  })
+
   const resolvedSeed = typeof seed === 'string' ? computeSeedFromString(seed) : seed
   const random = seededRandom(resolvedSeed ?? Date.now())
   const selected = []
-  const usedIndexes = new Set()
+  const usedIds = new Set()
 
-  while (selected.length < count && usedIndexes.size < candidateQuestions.length) {
-    const index = Math.floor(random() * candidateQuestions.length)
-    if (!usedIndexes.has(index)) {
-      usedIndexes.add(index)
-      selected.push(candidateQuestions[index])
+  while (selected.length < count && usedIds.size < candidateQuestions.length) {
+    const index = Math.floor(random() * weightedQuestions.length)
+    const question = weightedQuestions[index]
+    if (!usedIds.has(question.id)) {
+      usedIds.add(question.id)
+      selected.push(question)
     }
   }
 
@@ -151,22 +222,48 @@ export const getQuestionsBySection = section =>
     ? questionBank.slice()
     : questionBank.filter(question => question.section === section)
 
-export const getQuestionById = id => questionBank.find(question => question.id === id) ?? null
+export const getQuestionById = async id => {
+  const fromBank = questionBank.find(question => question.id === id)
+  if (fromBank) return fromBank
 
-export const getQuestionBankSummary = () =>
-  EXAM2_SECTIONS.map(section => ({
-    section,
-    total: questionBank.filter(question => question.section === section).length,
-    kinds: QUESTION_KINDS.reduce(
-      (acc, kind) => ({
-        ...acc,
-        [kind]: questionBank.filter(
-          question => question.section === section && question.kind === kind,
-        ).length,
-      }),
-      {},
-    ),
-  }))
+  try {
+    const instructorQuestions = await loadInstructorQuestions()
+    return instructorQuestions.find(question => question.id === id) ?? null
+  } catch {
+    return null
+  }
+}
+
+export const getQuestionBankSummary = async () => {
+  let instructorQuestions = []
+  try {
+    instructorQuestions = await loadInstructorQuestions()
+  } catch (error) {
+    console.warn('Failed to load instructor questions for summary:', error)
+  }
+
+  const allQuestions = mergeQuestionBanks(questionBank, instructorQuestions)
+
+  return EXAM2_SECTIONS.map(section => {
+    const sectionQuestions = allQuestions.filter(q => q.section === section)
+    const instructorCount = sectionQuestions.filter(q => q.origin === 'instructor').length
+    const otherCount = sectionQuestions.length - instructorCount
+
+    return {
+      section,
+      total: sectionQuestions.length,
+      instructor: instructorCount,
+      other: otherCount,
+      kinds: QUESTION_KINDS.reduce(
+        (acc, kind) => ({
+          ...acc,
+          [kind]: sectionQuestions.filter(q => q.kind === kind).length,
+        }),
+        {},
+      ),
+    }
+  })
+}
 
 export default {
   questionBank,
@@ -174,6 +271,8 @@ export default {
   getQuestionsBySection,
   getQuestionById,
   getQuestionBankSummary,
+  loadInstructorQuestions,
+  getMergedQuestionBank,
   EXAM2_SECTIONS,
   QUESTION_KINDS,
 }
